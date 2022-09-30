@@ -1,6 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
-import DashboardPanel from "./components/DashboardPanel";
+import logo from "./logo.svg";
+import "./App.css";
+import MenuSideBar from "./components/MenuSideBar";
+import OverviewPanel from "./components/OverviewPanel";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           Learn React
         </a>
       </header>
-      <DashboardPanel />
+      <MenuSideBar />
+      <OverviewPanel />
     </div>
   );
 }
