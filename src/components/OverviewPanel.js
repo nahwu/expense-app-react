@@ -15,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function OverviewPanel() {
   return (
-    <div>
+    <div style={{paddingTop: "80px", paddingLeft: "80px", paddingRight: "15px"}} >
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
@@ -23,7 +23,7 @@ export default function OverviewPanel() {
       >
         <Item>Item 1111111111111111111</Item>
         <Item>
-          Category
+          Breakdown
           <CategoryPieChart />
         </Item>
         <Item>Item 32333333333333322222222</Item>
