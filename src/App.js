@@ -9,27 +9,35 @@ function App() {
   const DUMMY_EXPENSE = [
     {
       id: "e1",
-      title: "Toilet Paper",
-      amount: 94.12,
+      item: "Toilet Paper",
       date: new Date(2020, 7, 14),
+      category: "Household",
+      payee: "",
+      amount: 94.12,
     },
     {
       id: "e2",
-      title: "New TV",
-      amount: 799.49,
+      item: "New TV",
       date: new Date(2021, 2, 12),
+      category: "Household",
+      payee: "",
+      amount: 799.49,
     },
     {
       id: "e3",
-      title: "Car Insurance",
-      amount: 294.67,
+      item: "Car Insurance",
       date: new Date(2021, 2, 28),
+      category: "Recurring",
+      payee: "",
+      amount: 294.67,
     },
     {
       id: "e4",
-      title: "New Desk (Wooden)",
-      amount: 450,
+      item: "New Desk (Wooden)",
       date: new Date(2021, 5, 12),
+      category: "Household",
+      payee: "Bob",
+      amount: 450,
     },
   ];
 
@@ -49,7 +57,7 @@ function App() {
       <MenuSideBar />
       <OverviewPanel />
       <NewExpensePanel onAddExpense={addNewExpenseHandler} />
-      <EnhancedTable />
+      <EnhancedTable expenseDataArray={expensesDataArray} />
     </div>
   );
 }

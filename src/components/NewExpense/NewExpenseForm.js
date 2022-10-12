@@ -5,13 +5,15 @@ const NewExpenseForm = (props) => {
   // Approach A
   /*
     const [enteredDate, setEnteredDate] = useState('');
-    const [enteredTitle, setEnteredTitle] = useState('');
+    const [enteredItem, setEnteredItem] = useState('');
     const [enteredAmount, setEnteredAmount] = useState('');
     */
   // Approach B
   const [userInput, setUserInput] = useState({
     enteredDate: "",
-    enteredTitle: "",
+    enteredItem: "",
+    enteredCategory: "",
+    enteredPayee: "",
     enteredAmount: "",
   });
 
@@ -34,11 +36,27 @@ const NewExpenseForm = (props) => {
       };
     });
   };
-  const titleChangeHandler = (event) => {
+  const itemChangeHandler = (event) => {
     setUserInput((prevState) => {
       return {
         ...prevState,
-        enteredTitle: event.target.value,
+        enteredItem: event.target.value,
+      };
+    });
+  };
+  const categoryChangeHandler = (event) => {
+    setUserInput((prevState) => {
+      return {
+        ...prevState,
+        enteredCategory: event.target.value,
+      };
+    });
+  };
+  const payeeChangeHandler = (event) => {
+    setUserInput((prevState) => {
+      return {
+        ...prevState,
+        enteredPayee: event.target.value,
       };
     });
   };
@@ -56,8 +74,10 @@ const NewExpenseForm = (props) => {
 
     const newExpenseData = {
       date: new Date(userInput.enteredDate),
-      title: userInput.enteredTitle,
-      amount: +userInput.enteredAmount,   // Convert String to number
+      item: userInput.enteredItem,
+      category: userInput.enteredCategory,
+      payee: userInput.enteredPayee,
+      amount: +userInput.enteredAmount, // Convert String to number
     };
 
     props.onSaveExpenseData(newExpenseData);
@@ -65,7 +85,9 @@ const NewExpenseForm = (props) => {
     // Reset form values
     setUserInput({
       enteredDate: "",
-      enteredTitle: "",
+      enteredItem: "",
+      enteredCategory: "",
+      enteredPayee: "",
       enteredAmount: "",
     });
   };
@@ -84,11 +106,27 @@ const NewExpenseForm = (props) => {
           ></input>
         </div>
         <div className="new-expense__control">
-          <label>Title</label>
+          <label>Item</label>
           <input
             type="text"
-            value={userInput.enteredTitle}
-            onChange={titleChangeHandler}
+            value={userInput.enteredItem}
+            onChange={itemChangeHandler}
+          ></input>
+        </div>
+        <div className="new-expense__control">
+          <label>Category</label>
+          <input
+            type="text"
+            value={userInput.enteredCategory}
+            onChange={categoryChangeHandler}
+          ></input>
+        </div>
+        <div className="new-expense__control">
+          <label>Payee</label>
+          <input
+            type="text"
+            value={userInput.enteredPayee}
+            onChange={payeeChangeHandler}
           ></input>
         </div>
         <div className="new-expense__control">

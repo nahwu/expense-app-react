@@ -22,16 +22,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
-function createData(name, calories, fat, carbs, protein) {
+function createData(item, date, category, payee, amount, protein) {
   return {
-    name,
-    calories,
-    fat,
-    carbs,
+    item,
+    date,
+    category,
+    payee,
+    amount,
     protein,
   };
 }
 
+/*
 const rows = [
   createData("Cupcake", 305, 3.7, 67, 4.3),
   createData("Donut", 452, 25.0, 51, 4.9),
@@ -47,6 +49,7 @@ const rows = [
   createData("Nougat", 360, 19.0, 9, 37.0),
   createData("Oreo", 437, 18.0, 63, 4.0),
 ];
+*/
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -80,34 +83,40 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "name",
+    id: "item",
     numeric: false,
     disablePadding: true,
-    label: "Name",
+    label: "Item",
   },
   {
-    id: "calories",
-    numeric: true,
+    id: "date",
+    numeric: false,
     disablePadding: false,
     label: "Date",
   },
   {
-    id: "fat",
-    numeric: true,
+    id: "category",
+    numeric: false,
     disablePadding: false,
-    label: "Type",
+    label: "Category",
   },
   {
-    id: "carbs",
+    id: "payee",
+    numeric: false,
+    disablePadding: false,
+    label: "Payee",
+  },
+  {
+    id: "amount",
     numeric: true,
     disablePadding: false,
-    label: "Income",
+    label: "Inflow",
   },
   {
     id: "protein",
     numeric: true,
     disablePadding: false,
-    label: "Expense",
+    label: "Outflow",
   },
 ];
 
@@ -231,13 +240,34 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props) {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("date");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  // Convert input data into display data format  
+  let rows = [];
+  if (props.expenseDataArray.length > 0) {
+    rows = props.expenseDataArray.map((expenseItem) =>
+      createData(
+        expenseItem.item,
+        "".concat(
+          expenseItem.date.getFullYear(),
+          "-",
+          expenseItem.date.getMonth(),
+          "-",
+          expenseItem.date.toLocaleString("en-US", { day: "2-digit" })
+        ),
+        expenseItem.category,
+        expenseItem.payee,
+        expenseItem.amount,
+        expenseItem.amount
+      )
+    );
+  }
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -247,19 +277,19 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
+      const newSelected = rows.map((n) => n.item);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, item) => {
+    const selectedIndex = selected.indexOf(item);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, item);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -287,7 +317,7 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (item) => selected.indexOf(item) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -320,17 +350,17 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.item);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.item)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.item}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -348,11 +378,12 @@ export default function EnhancedTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.item}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
+                      <TableCell align="left">{row.date}</TableCell>
+                      <TableCell align="left">{row.category}</TableCell>
+                      <TableCell align="left">{row.payee}</TableCell>
+                      <TableCell align="right">{row.amount}</TableCell>
                       <TableCell align="right">{row.protein}</TableCell>
                     </TableRow>
                   );
