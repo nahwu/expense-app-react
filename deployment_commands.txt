@@ -1,0 +1,12 @@
+docker build -t nahwu2/react-expense-app:0.1 .
+
+docker push nahwu2/react-expense-app:0.1
+
+
+docker save nahwu2/react-expense-app:0.1 | gzip > exported_react_expense_app_0_1.tar.gz
+
+#docker rm -f react-expense-app
+#docker image rmi nahwu2/react-expense-app:0.1
+docker run --restart always --name react-expense-app \
+        -p 8081:8081 \
+        -d nahwu2/react-expense-app:0.1
