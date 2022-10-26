@@ -22,8 +22,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
-function createData(item, date, category, payee, amount, protein) {
+function createData(id, item, date, category, payee, amount, protein) {
   return {
+    id,
     item,
     date,
     category,
@@ -83,16 +84,16 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "item",
-    numeric: false,
-    disablePadding: true,
-    label: "Item",
-  },
-  {
     id: "date",
     numeric: false,
     disablePadding: false,
     label: "Date",
+  },
+  {
+    id: "item",
+    numeric: false,
+    disablePadding: true,
+    label: "Item",
   },
   {
     id: "category",
@@ -253,11 +254,12 @@ export default function EnhancedTable(props) {
   if (props.expenseDataArray.length > 0) {
     rows = props.expenseDataArray.map((expenseItem) =>
       createData(
+        expenseItem.id,
         expenseItem.item,
         "".concat(
           expenseItem.date.getFullYear(),
           "-",
-          expenseItem.date.getMonth(),
+          expenseItem.date.getMonth() + 1,    //Add 1 due to 0-11 range
           "-",
           expenseItem.date.toLocaleString("en-US", { day: "2-digit" })
         ),
@@ -360,7 +362,7 @@ export default function EnhancedTable(props) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.item}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -372,6 +374,7 @@ export default function EnhancedTable(props) {
                           }}
                         />
                       </TableCell>
+                      <TableCell align="left">{row.date}</TableCell>
                       <TableCell
                         component="th"
                         id={labelId}
@@ -380,7 +383,6 @@ export default function EnhancedTable(props) {
                       >
                         {row.item}
                       </TableCell>
-                      <TableCell align="left">{row.date}</TableCell>
                       <TableCell align="left">{row.category}</TableCell>
                       <TableCell align="left">{row.payee}</TableCell>
                       <TableCell align="right">{row.amount}</TableCell>

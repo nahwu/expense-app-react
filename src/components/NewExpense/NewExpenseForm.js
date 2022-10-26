@@ -10,11 +10,11 @@ const NewExpenseForm = (props) => {
     */
   // Approach B
   const [userInput, setUserInput] = useState({
-    enteredDate: "",
+    enteredDate: new Date().toJSON().slice(0, 10),
     enteredItem: "",
     enteredCategory: "",
     enteredPayee: "",
-    enteredAmount: "",
+    enteredAmount: 0,
   });
 
   const dateChangeHandler = (event) => {
@@ -84,11 +84,11 @@ const NewExpenseForm = (props) => {
 
     // Reset form values
     setUserInput({
-      enteredDate: "",
+      enteredDate: new Date().toJSON().slice(0, 10),
       enteredItem: "",
       enteredCategory: "",
       enteredPayee: "",
-      enteredAmount: "",
+      enteredAmount: 0,
     });
   };
 
