@@ -1,0 +1,5 @@
+@media only screen and (max-width: 599px) {
+  .MuiDrawer-paperAnchorDockedLeft {
+    width: 0px !important;
+  }
+}

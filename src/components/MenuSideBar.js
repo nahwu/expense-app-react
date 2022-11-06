@@ -20,6 +20,7 @@ import AddchartIcon from "@mui/icons-material/Addchart";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import "./MenuSideBar.css";
 
 const drawerWidth = 240;
 

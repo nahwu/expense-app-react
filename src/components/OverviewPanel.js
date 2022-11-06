@@ -15,18 +15,18 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function OverviewPanel() {
   return (
-    <div style={{paddingTop: "80px", paddingLeft: "80px", paddingRight: "15px"}} >
+    <div className="overview-panel">
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
         className="stack-holder"
       >
-        <Item>Item 1111111111111111111</Item>
+        <Item>Placeholder for Current Month Budget</Item>
         <Item>
-          Breakdown
+          Category Spending
           <CategoryPieChart />
         </Item>
-        <Item>Item 32333333333333322222222</Item>
+        <Item>Place holder for Current Month Saving</Item>
       </Stack>
     </div>
   );

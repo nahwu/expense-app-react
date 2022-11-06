@@ -1,5 +1,5 @@
 # Build environment
-FROM node:16.17.1 as build
+FROM node:18.12.0 as build
 
 WORKDIR /opt/frontend
 COPY package.json package-lock.json ./
@@ -13,7 +13,7 @@ RUN npm run build
 
 
 # Production environment
-FROM nginx:1.23.1
+FROM nginx:1.23.2
 
 COPY --from=build /opt/frontend/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf

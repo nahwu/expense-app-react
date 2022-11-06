@@ -21,6 +21,7 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import "./EnhancedTable.css";
 
 function createData(id, item, date, category, payee, amount, protein) {
   return {
@@ -242,14 +243,14 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function EnhancedTable(props) {
-  const [order, setOrder] = React.useState("asc");
+  const [order, setOrder] = React.useState("desc");
   const [orderBy, setOrderBy] = React.useState("date");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  // Convert input data into display data format  
+  // Convert input data into display data format
   let rows = [];
   if (props.expenseDataArray.length > 0) {
     rows = props.expenseDataArray.map((expenseItem) =>
@@ -259,7 +260,7 @@ export default function EnhancedTable(props) {
         "".concat(
           expenseItem.date.getFullYear(),
           "-",
-          expenseItem.date.getMonth() + 1,    //Add 1 due to 0-11 range
+          expenseItem.date.getMonth() + 1, //Add 1 due to 0-11 range
           "-",
           expenseItem.date.toLocaleString("en-US", { day: "2-digit" })
         ),
@@ -326,10 +327,7 @@ export default function EnhancedTable(props) {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box
-      sx={{ width: "100%" }}
-      style={{ marginTop: "10px", paddingLeft: "80px", paddingRight: "15px" }}
-    >
+    <Box sx={{ width: "100%" }} className="enhanced-table-main">
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>

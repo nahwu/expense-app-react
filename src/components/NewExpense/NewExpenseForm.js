@@ -1,4 +1,10 @@
 import { useState } from "react";
+// MUI dropdown box -- START
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import NativeSelect from "@mui/material/NativeSelect";
+// MUI dropdown box -- END
 import "./NewExpenseForm.css";
 
 const NewExpenseForm = (props) => {
@@ -12,9 +18,9 @@ const NewExpenseForm = (props) => {
   const [userInput, setUserInput] = useState({
     enteredDate: new Date().toJSON().slice(0, 10),
     enteredItem: "",
-    enteredCategory: "",
-    enteredPayee: "",
-    enteredAmount: 0,
+    enteredCategory: "Food and Drinks",
+    enteredPayee: "Nah Wu",
+    enteredAmount: "",
   });
 
   const dateChangeHandler = (event) => {
@@ -86,9 +92,9 @@ const NewExpenseForm = (props) => {
     setUserInput({
       enteredDate: new Date().toJSON().slice(0, 10),
       enteredItem: "",
-      enteredCategory: "",
-      enteredPayee: "",
-      enteredAmount: 0,
+      enteredCategory: userInput.enteredCategory,
+      enteredPayee: userInput.enteredPayee,
+      enteredAmount: "",
     });
   };
 
@@ -111,32 +117,76 @@ const NewExpenseForm = (props) => {
             type="text"
             value={userInput.enteredItem}
             onChange={itemChangeHandler}
+            required
           ></input>
         </div>
         <div className="new-expense__control">
-          <label>Category</label>
+          {/* <label>Category</label>
           <input
             type="text"
             value={userInput.enteredCategory}
             onChange={categoryChangeHandler}
-          ></input>
+          ></input> */}
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                Category
+              </InputLabel>
+              <NativeSelect
+                //defaultValue="Food and Drinks"
+                inputProps={{
+                  name: "category",
+                  id: "uncontrolled-native",
+                }}
+                value={userInput.enteredCategory}
+                onChange={categoryChangeHandler}
+              >
+                <option value="Food and Drinks">Food and Drinks</option>
+                <option value="Leisure">Leisure</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Household">Household</option>
+                <option value="Baby">Baby</option>
+              </NativeSelect>
+            </FormControl>
+          </Box>
         </div>
         <div className="new-expense__control">
-          <label>Payee</label>
+          {/*  <label>Payee</label>
           <input
             type="text"
             value={userInput.enteredPayee}
             onChange={payeeChangeHandler}
-          ></input>
+          ></input> */}
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                Payee
+              </InputLabel>
+              <NativeSelect
+                //defaultValue="Nah Wu"
+                inputProps={{
+                  name: "payee",
+                  id: "uncontrolled-native",
+                }}
+                value={userInput.enteredPayee}
+                onChange={payeeChangeHandler}
+              >
+                <option value="Nah Wu">Nah Wu</option>
+                <option value="Zuo Er">Zuo Er</option>
+              </NativeSelect>
+            </FormControl>
+          </Box>
         </div>
         <div className="new-expense__control">
-          <label>Amount</label>
+          <label>Amount ($)</label>
           <input
             type="number"
             min="0.01"
+            max="999999"
             step="0.01"
             value={userInput.enteredAmount}
             onChange={amountChangeHandler}
+            required
           ></input>
         </div>
       </div>

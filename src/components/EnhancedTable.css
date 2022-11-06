@@ -1,20 +1,16 @@
-.stack-holder {
-  justify-content: center;
-}
-
-.overview-panel {
-  padding-top: 80px;
+.enhanced-table-main {
+  padding-top: 10px;
 }
 
 @media only screen and (min-width: 600px) {
-  .overview-panel {
+  .enhanced-table-main {
     padding-left: 80px;
     padding-right: 15px;
   }
 }
 
 @media only screen and (max-width: 599px) {
-  .overview-panel {
+  .enhanced-table-main {
     padding-left: 10px;
     padding-right: 10px;
   }
