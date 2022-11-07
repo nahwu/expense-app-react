@@ -23,35 +23,27 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import "./EnhancedTable.css";
 
-function createData(id, item, date, category, payee, amount, protein) {
+function createData(
+  id,
+  item,
+  date,
+  amount,
+  isExpense,
+  category,
+  payer,
+  receiver
+) {
   return {
     id,
     item,
     date,
-    category,
-    payee,
     amount,
-    protein,
+    isExpense,
+    category,
+    payer,
+    receiver,
   };
 }
-
-/*
-const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
-];
-*/
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -87,15 +79,27 @@ const headCells = [
   {
     id: "date",
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: "Date",
   },
   {
     id: "item",
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: "Item",
   },
+  {
+    id: "amount",
+    numeric: true,
+    disablePadding: true,
+    label: "Amount",
+  },
+  /*   {
+    id: "isExpense",
+    numeric: false,
+    disablePadding: false,
+    label: "Expense",
+  }, */
   {
     id: "category",
     numeric: false,
@@ -103,22 +107,16 @@ const headCells = [
     label: "Category",
   },
   {
-    id: "payee",
+    id: "payer",
     numeric: false,
     disablePadding: false,
-    label: "Payee",
+    label: "Payer",
   },
   {
-    id: "amount",
-    numeric: true,
+    id: "receiver",
+    numeric: false,
     disablePadding: false,
-    label: "Inflow",
-  },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Outflow",
+    label: "Receiver",
   },
 ];
 
@@ -145,7 +143,7 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              "aria-label": "select all desserts",
+              "aria-label": "select all transactions",
             }}
           />
         </TableCell>
@@ -217,7 +215,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Expenses
+          Transactions
         </Typography>
       )}
 
@@ -264,10 +262,11 @@ export default function EnhancedTable(props) {
           "-",
           expenseItem.date.toLocaleString("en-US", { day: "2-digit" })
         ),
-        expenseItem.category,
-        expenseItem.payee,
         expenseItem.amount,
-        expenseItem.amount
+        expenseItem.isExpense,
+        expenseItem.category,
+        expenseItem.payer,
+        expenseItem.receiver
       )
     );
   }
@@ -372,19 +371,28 @@ export default function EnhancedTable(props) {
                           }}
                         />
                       </TableCell>
-                      <TableCell align="left">{row.date}</TableCell>
                       <TableCell
-                        component="th"
+                        align="left"
+                        padding="none"
+                        style={{ minWidth: "70px" }}
+                      >
+                        {row.date}
+                      </TableCell>
+                      <TableCell
+                      /*  component="th"
                         id={labelId}
                         scope="row"
-                        padding="none"
+                        padding="none" */
                       >
                         {row.item}
                       </TableCell>
+                      <TableCell align="right" padding="none">
+                        {row.isExpense === "Expense" ? "-" : ""}${row.amount}
+                      </TableCell>
+                      {/* <TableCell align="left">{row.isExpense}</TableCell> */}
                       <TableCell align="left">{row.category}</TableCell>
-                      <TableCell align="left">{row.payee}</TableCell>
-                      <TableCell align="right">{row.amount}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="left">{row.payer}</TableCell>
+                      <TableCell align="left">{row.receiver}</TableCell>
                     </TableRow>
                   );
                 })}

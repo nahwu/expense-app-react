@@ -5,6 +5,10 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 // MUI dropdown box -- END
+// Toggle switch -- START
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+// Toggle switch -- END
 import "./NewExpenseForm.css";
 
 const NewExpenseForm = (props) => {
@@ -19,7 +23,11 @@ const NewExpenseForm = (props) => {
     enteredDate: new Date().toJSON().slice(0, 10),
     enteredItem: "",
     enteredCategory: "Food and Drinks",
-    enteredPayee: "Nah Wu",
+    enteredReceiver: "",
+    enteredPayer: "Nah Wu",
+    selectedAsExpense: true,
+    expenseToggleColor: "error",
+    expenseToggleLabel: "Expense",
     enteredAmount: "",
   });
 
@@ -58,11 +66,32 @@ const NewExpenseForm = (props) => {
       };
     });
   };
-  const payeeChangeHandler = (event) => {
+  const receiverChangeHandler = (event) => {
     setUserInput((prevState) => {
       return {
         ...prevState,
-        enteredPayee: event.target.value,
+        enteredReceiver: event.target.value,
+      };
+    });
+  };
+  const payerChangeHandler = (event) => {
+    setUserInput((prevState) => {
+      return {
+        ...prevState,
+        enteredPayer: event.target.value,
+      };
+    });
+  };
+  const expenseToggleChangeHandler = (event) => {
+    setUserInput((prevState) => {
+      return {
+        ...prevState,
+        selectedAsExpense: event.target.checked,
+        // expenseToggleColor: event.target.checked ? "error" : "success",
+        expenseToggleLabel: event.target.checked ? "Expense" : "Income",
+        enteredPayer: event.target.checked ? "Nah Wu" : "GOV", // Failsafe default value
+        enteredReceiver: event.target.checked ? "" : "Nah Wu", // Failsafe default value
+        enteredCategory: event.target.checked ? "Food and Drinks" : "Income", // Failsafe default value
       };
     });
   };
@@ -82,7 +111,10 @@ const NewExpenseForm = (props) => {
       date: new Date(userInput.enteredDate),
       item: userInput.enteredItem,
       category: userInput.enteredCategory,
-      payee: userInput.enteredPayee,
+      payer: userInput.enteredPayer,
+      receiver: userInput.selectedAsExpense ? "" : userInput.enteredReceiver,
+      expense: userInput.selectedAsExpense,
+      isExpense: userInput.expenseToggleLabel,
       amount: +userInput.enteredAmount, // Convert String to number
     };
 
@@ -93,7 +125,11 @@ const NewExpenseForm = (props) => {
       enteredDate: new Date().toJSON().slice(0, 10),
       enteredItem: "",
       enteredCategory: userInput.enteredCategory,
-      enteredPayee: userInput.enteredPayee,
+      enteredPayer: userInput.enteredPayer,
+      enteredReceiver: userInput.enteredReceiver,
+      selectedAsExpense: userInput.selectedAsExpense,
+      expenseToggleColor: userInput.expenseToggleColor,
+      expenseToggleLabel: userInput.expenseToggleLabel,
       enteredAmount: "",
     });
   };
@@ -147,36 +183,68 @@ const NewExpenseForm = (props) => {
                 <option value="Transportation">Transportation</option>
                 <option value="Household">Household</option>
                 <option value="Baby">Baby</option>
+                <option value="Recurring">Recurring</option>
+                <option value="Income">Income</option>
               </NativeSelect>
             </FormControl>
           </Box>
         </div>
         <div className="new-expense__control">
-          {/*  <label>Payee</label>
-          <input
-            type="text"
-            value={userInput.enteredPayee}
-            onChange={payeeChangeHandler}
-          ></input> */}
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
               <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                Payee
+                Payer
               </InputLabel>
               <NativeSelect
-                //defaultValue="Nah Wu"
                 inputProps={{
-                  name: "payee",
+                  name: "payer",
                   id: "uncontrolled-native",
                 }}
-                value={userInput.enteredPayee}
-                onChange={payeeChangeHandler}
+                value={userInput.enteredPayer}
+                onChange={payerChangeHandler}
               >
                 <option value="Nah Wu">Nah Wu</option>
                 <option value="Zuo Er">Zuo Er</option>
+                <option value="ST">ST</option>
+                <option value="CGH">CGH</option>
+                <option value="GOV">GOV</option>
               </NativeSelect>
             </FormControl>
           </Box>
+        </div>
+        {!userInput.selectedAsExpense && (
+          <div className="new-expense__control">
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                  Receiver
+                </InputLabel>
+                <NativeSelect
+                  inputProps={{
+                    name: "receiver",
+                    id: "uncontrolled-native",
+                  }}
+                  value={userInput.enteredReceiver}
+                  onChange={receiverChangeHandler}
+                >
+                  <option value="Nah Wu">Nah Wu</option>
+                  <option value="Zuo Er">Zuo Er</option>
+                </NativeSelect>
+              </FormControl>
+            </Box>
+          </div>
+        )}
+        <div className="new-expense__control">
+          <FormControlLabel
+            control={
+              <Switch
+                checked={userInput.selectedAsExpense}
+                onChange={expenseToggleChangeHandler}
+                color={userInput.expenseToggleColor}
+              />
+            }
+            label={userInput.expenseToggleLabel}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount ($)</label>
@@ -196,7 +264,7 @@ const NewExpenseForm = (props) => {
         <button type="button" onClick={props.onCancelUpdateParent}>
           Cancel
         </button>
-        <button type="submit">Add Expense</button>
+        <button type="submit">Add</button>
       </div>
     </form>
   );
