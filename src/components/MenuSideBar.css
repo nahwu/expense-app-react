@@ -1,5 +1,6 @@
 @media only screen and (max-width: 599px) {
-  .MuiDrawer-paperAnchorDockedLeft {
+  /* Hide sidebar in mobile screen unless user clicked to expand*/
+  .hide-sidebar-in-mobile .MuiDrawer-paperAnchorDockedLeft {
     width: 0px !important;
   }
 }

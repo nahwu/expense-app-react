@@ -123,7 +123,11 @@ export default function MenuSideBar() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        className={!open && "hide-sidebar-in-mobile"}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -135,7 +139,7 @@ export default function MenuSideBar() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Overview", "Expenses", "Send email", "Drafts"].map(
+          {["Overview", "Expenses", "Budget", "Assets" ,"Networth"].map(
             (text, index) => (
               <ListItem key={text} disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -162,7 +166,7 @@ export default function MenuSideBar() {
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
+          {["Settings", "Accounts", "Help"].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{

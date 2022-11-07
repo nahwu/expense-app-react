@@ -15,11 +15,40 @@ The goal is to begin with expense awareness and then expand to expense budgeting
 
 
 ## 3. Supported features
-To be updated
+1. Demo functionality for
+    1. Adding expense
+    1. Viewing expense
+        1. Sorting expenses
 
 
 ## 4. Development Roadmap
-To be updated
+1. **Feature:** Mobile friendly view for existing expenses (ready-made table is not suitable for mobile)
+1. **Feature:** Add support for view Transaction API
+    1. View most recent transactions
+    1. Search for transactions
+    1. Add in pagination (page + page size) for results
+1. **Feature:** Add support for create Transaction API
+1. **Feature:** Add support for delete Transaction API
+1. **Feature:** Add support for edit Transaction API
+1. **Feature:** Add support for aggregation Transaction API (for descriptive analytics e.g. charts)
+    1. View current month expenses (by category)
+    1. View current month expenses VS budgeted
+    1. View current month savings
+1. **Feature:** Add support for monthly recurring expense
+1. **Feature:** Add support for list, create, edit, delete Expense Category API
+1. **Feature:** Add support for income
+1. **Feature:** Add support for list, create, edit, delete Expense Payer API
+1. **Feature:** Add support for list, create, edit, delete Expense Receiver API
+1. **Feature:** Allow data import from CSV file
+    1. Flexible field-name remapping for data import/export
+1. **Feature:** Allow data export to CSV fil
+1. **Feature:** Investment tracking
+1. **Feature:** Account login
+1. **Feature:** Account creation
+1. **Feature:** Multi accounts visibility for family sharing
+1. **Feature:** Upload and attach image to expense
+
+
 
 
 # Getting Started with Create React App
