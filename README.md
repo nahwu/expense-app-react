@@ -6,8 +6,10 @@ This repository is meant for a Frontend web application for an expense tracker a
 
 ## 2. Purpose
 While there are many expense trackers out there. The good ones are mostly behind a paywall. 
+
 There is also the 
 **Knowledge** of your own expenses is very crucial to our personal financial health for both the present and the future.
+
 It only takes 20 average medium-sized spending (e.g. $50) within a month to reach 4 figure expense (>= $1000) for the month.
 It's not uncommon to know someone who spends beyond their means, especially when one suddenly have more income than before. 
 
@@ -15,13 +17,16 @@ The goal is to begin with expense awareness and then expand to expense budgeting
 
 
 ## 3. Supported features
+1. Transactions data
+    1. Date, item description, expense category, payer, receiver, expense/income, amount
+1. **Feature:** View existing transactions
+    1. View most recent transactions
+1. **Feature:** Create transactions
 1. Demo functionality for
     1. Adding expense
     1. Viewing expense
         1. Sorting expenses
-1. **Feature:** Add support for view Transaction API
-    1. View most recent transactions
-1. **Feature:** Add support for create Transaction API
+
 
 ## 4. Development Roadmap
 1. **Feature:** Mobile friendly view for existing expenses (ready-made table is not suitable for mobile)
@@ -47,7 +52,6 @@ The goal is to begin with expense awareness and then expand to expense budgeting
 1. **Feature:** Account creation
 1. **Feature:** Multi accounts visibility for family sharing
 1. **Feature:** Upload and attach image to expense
-
 
 
 
