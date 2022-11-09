@@ -19,15 +19,15 @@ The goal is to begin with expense awareness and then expand to expense budgeting
     1. Adding expense
     1. Viewing expense
         1. Sorting expenses
-
+1. **Feature:** Add support for view Transaction API
+    1. View most recent transactions
+1. **Feature:** Add support for create Transaction API
 
 ## 4. Development Roadmap
 1. **Feature:** Mobile friendly view for existing expenses (ready-made table is not suitable for mobile)
 1. **Feature:** Add support for view Transaction API
-    1. View most recent transactions
     1. Search for transactions
     1. Add in pagination (page + page size) for results
-1. **Feature:** Add support for create Transaction API
 1. **Feature:** Add support for delete Transaction API
 1. **Feature:** Add support for edit Transaction API
 1. **Feature:** Add support for aggregation Transaction API (for descriptive analytics e.g. charts)
