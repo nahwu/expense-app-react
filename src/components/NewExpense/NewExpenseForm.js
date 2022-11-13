@@ -10,6 +10,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 // Toggle switch -- END
 import "./NewExpenseForm.css";
+import { Divider } from "@mui/material";
 
 const NewExpenseForm = (props) => {
   // Approach A
@@ -112,7 +113,7 @@ const NewExpenseForm = (props) => {
       item: userInput.enteredItem,
       category: userInput.enteredCategory,
       payer: userInput.enteredPayer,
-      receiver: userInput.selectedAsExpense ? "" : userInput.enteredReceiver,
+      receiver: userInput.enteredReceiver,
       expense: userInput.selectedAsExpense,
       isExpense: userInput.expenseToggleLabel,
       amount: +userInput.enteredAmount, // Convert String to number
@@ -179,12 +180,20 @@ const NewExpenseForm = (props) => {
                 onChange={categoryChangeHandler}
               >
                 <option value="Food and Drinks">Food and Drinks</option>
-                <option value="Leisure">Leisure</option>
                 <option value="Transportation">Transportation</option>
+                <option value="Medical">Medical</option>
+                <option value="Leisure">Leisure</option>
+                <Divider />
                 <option value="Household">Household</option>
                 <option value="Baby">Baby</option>
+                <Divider />
                 <option value="Recurring">Recurring</option>
+                <option value="Insurance">Insurance</option>
+                <Divider />
                 <option value="Income">Income</option>
+                <Divider />
+                <option value="Gift">Gift</option>
+                <option value="Others">Others</option>
               </NativeSelect>
             </FormControl>
           </Box>
@@ -203,37 +212,49 @@ const NewExpenseForm = (props) => {
                 value={userInput.enteredPayer}
                 onChange={payerChangeHandler}
               >
+                <option value=""></option>
+                <Divider />
                 <option value="Nah Wu">Nah Wu</option>
                 <option value="Zuo Er">Zuo Er</option>
+                <Divider />
                 <option value="ST">ST</option>
                 <option value="CGH">CGH</option>
-                <option value="GOV">GOV</option>
+                <option value="Gov">Gov</option>
               </NativeSelect>
             </FormControl>
           </Box>
         </div>
-        {!userInput.selectedAsExpense && (
-          <div className="new-expense__control">
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                  Receiver
-                </InputLabel>
-                <NativeSelect
-                  inputProps={{
-                    name: "receiver",
-                    id: "uncontrolled-native",
-                  }}
-                  value={userInput.enteredReceiver}
-                  onChange={receiverChangeHandler}
-                >
-                  <option value="Nah Wu">Nah Wu</option>
-                  <option value="Zuo Er">Zuo Er</option>
-                </NativeSelect>
-              </FormControl>
-            </Box>
-          </div>
-        )}
+        {/* {!userInput.selectedAsExpense && ( */}
+        <div className="new-expense__control">
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                Receiver
+              </InputLabel>
+              <NativeSelect
+                inputProps={{
+                  name: "receiver",
+                  id: "uncontrolled-native",
+                }}
+                value={userInput.enteredReceiver}
+                onChange={receiverChangeHandler}
+              >
+                <option value=""></option>
+                <Divider />
+                <option value="Nah Wu">Nah Wu</option>
+                <option value="Zuo Er">Zuo Er</option>
+                <Divider />
+                <option value="Ma">Ma</option>
+                <option value="Pa">Pa</option>
+                <option value="Dad">Dad</option>
+                <Divider />
+                <option value="Shop">Shop</option>
+                <option value="Gov">Gov</option>
+              </NativeSelect>
+            </FormControl>
+          </Box>
+        </div>
+        {/* )} */}
         <div className="new-expense__control">
           <FormControlLabel
             control={
