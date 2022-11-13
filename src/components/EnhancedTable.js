@@ -185,6 +185,11 @@ EnhancedTableHead.propTypes = {
 const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
 
+  // Original trigger for parentActOnDeleteTransactions. Part 1/3
+  const handleDeleteClick = (event) => {
+    props.parentActOnDeleteTransactions(numSelected);
+  };
+
   return (
     <Toolbar
       sx={{
@@ -221,7 +226,7 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton>
+          <IconButton onClick={handleDeleteClick}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -246,7 +251,7 @@ export default function EnhancedTable(props) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   // Convert input data into display data format
   let rows = [];
@@ -279,19 +284,19 @@ export default function EnhancedTable(props) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.item);
+      const newSelected = rows.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, item) => {
-    const selectedIndex = selected.indexOf(item);
+  const handleClick = (event, itemId) => {
+    const selectedIndex = selected.indexOf(itemId);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, item);
+      newSelected = newSelected.concat(selected, itemId);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -304,6 +309,12 @@ export default function EnhancedTable(props) {
     }
 
     setSelected(newSelected);
+    //console.log("SELECTED >> ", selected);
+  };
+
+  // Passing for parentActOnDeleteTransactions. Part 2/3. Getting from part 1/3.
+  const parentActOnDeleteTransactions = (event) => {
+    props.parentActOnDeleteTransactions(selected);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -328,7 +339,10 @@ export default function EnhancedTable(props) {
   return (
     <Box sx={{ width: "100%" }} className="enhanced-table-main">
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          parentActOnDeleteTransactions={parentActOnDeleteTransactions}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -349,13 +363,13 @@ export default function EnhancedTable(props) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.item);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.item)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}

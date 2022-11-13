@@ -7,6 +7,7 @@ import NewExpensePanel from "./components/NewExpense/NewExpensePanel";
 
 function App() {
   const backendServerPath = "http://nahwu.synology.me:8080";
+  //const backendServerPath = "http://127.0.0.1:8080";
 
   const [isLoading, setIsLoading] = useState(false); // TODO - To make use of this
   const [error, setError] = useState(null); // TODO - To make use of this
@@ -56,7 +57,7 @@ function App() {
 
   const [expensesDataArray, setExpensesDataArray] = useState(DUMMY_EXPENSE);
 
-  const fetchTransactionsHandler = useCallback(async () => {
+  const fetchLatestTransactionsHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -87,7 +88,7 @@ function App() {
 
       for (const key in responseData) {
         loadedTransactions.push({
-          id: key,
+          id: responseData[key]._id, //key,
           item: responseData[key].item,
           date: new Date(responseData[key].date),
           category: responseData[key].category,
@@ -105,7 +106,7 @@ function App() {
       if (loadedTransactions && loadedTransactions.length > 0) {
         setExpensesDataArray(loadedTransactions);
       }
-      //console.log(loadedTransactions); // TODO - fetchTransactionsHandler is incorrectly being called 2 times upon page load
+      console.log(loadedTransactions); // TODO - fetchTransactionsHandler is incorrectly being called 2 times upon page load
     } catch (error) {
       setError(error.message);
     }
@@ -113,14 +114,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetchTransactionsHandler();
-  }, [fetchTransactionsHandler]);
+    fetchLatestTransactionsHandler();
+  }, [fetchLatestTransactionsHandler]);
 
   const addNewExpenseHandler = async (newExpense) => {
     // Quick display update without requerying. Issue: May be prone to stale data display
+    /*
     setExpensesDataArray((prevExpenseArray) => {
       return [newExpense, ...prevExpenseArray];
     });
+    */
 
     const response = await fetch(backendServerPath + "/v1/transactions", {
       method: "POST",
@@ -132,8 +135,26 @@ function App() {
 
     // TODO - Display error if unable to add transaction
 
-    //const responseData = await response.json();
-    //console.log("Response data: ", responseData);
+    fetchLatestTransactionsHandler();
+  };
+
+  // Final actor for parentActOnDeleteTransactions. Part 3/3. from part 2/3
+  const parentActOnDeleteTransactions = async (transactionsToDelete) => {
+    console.log("Preparing to make API call to delete", transactionsToDelete);
+    const rawIds = {};
+    rawIds["listOfId"] = transactionsToDelete; // Prepare for conversion to JSON style
+
+    const response = await fetch(backendServerPath + "/v1/transactions", {
+      method: "DELETE",
+      body: JSON.stringify(rawIds),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // TODO - Display error if unable to delete transaction
+
+    fetchLatestTransactionsHandler();
   };
 
   return (
@@ -141,7 +162,10 @@ function App() {
       <MenuSideBar />
       <OverviewPanel />
       <NewExpensePanel onAddExpense={addNewExpenseHandler} />
-      <EnhancedTable expenseDataArray={expensesDataArray} />
+      <EnhancedTable
+        expenseDataArray={expensesDataArray}
+        parentActOnDeleteTransactions={parentActOnDeleteTransactions}
+      />
     </div>
   );
 }

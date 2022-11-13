@@ -22,6 +22,7 @@ The goal is to begin with expense awareness and then expand to expense budgeting
 1. **Feature:** View existing transactions
     1. View most recent transactions
 1. **Feature:** Create transactions
+1. **Feature:** Delete transactions
 1. Demo functionality for
     1. Adding expense
     1. Viewing expense
@@ -33,7 +34,6 @@ The goal is to begin with expense awareness and then expand to expense budgeting
 1. **Feature:** Add support for view Transaction API
     1. Search for transactions
     1. Add in pagination (page + page size) for results
-1. **Feature:** Add support for delete Transaction API
 1. **Feature:** Add support for edit Transaction API
 1. **Feature:** Add support for aggregation Transaction API (for descriptive analytics e.g. charts)
     1. View current month expenses (by category)
@@ -52,6 +52,23 @@ The goal is to begin with expense awareness and then expand to expense budgeting
 1. **Feature:** Account creation
 1. **Feature:** Multi accounts visibility for family sharing
 1. **Feature:** Upload and attach image to expense
+
+
+# X. OPTIONAL - Developers only
+
+## X1. To run React application
+```sh
+npm start
+```
+
+## X2. Build, push, export Docker image
+```sh
+docker build -t nahwu2/react-expense-app:0.1 .
+
+docker push nahwu2/react-expense-app:0.1
+
+docker save nahwu2/react-expense-app:0.1 | gzip > exported_react_expense_app_0_1.tar.gz
+```
 
 
 
