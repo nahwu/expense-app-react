@@ -10,7 +10,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 // Toggle switch -- END
 import "./NewExpenseForm.css";
-import { Divider } from "@mui/material";
+import Divider from "@mui/material/Divider";
 
 const NewExpenseForm = (props) => {
   // Approach A

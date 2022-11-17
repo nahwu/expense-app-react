@@ -21,12 +21,12 @@ export default function OverviewPanel() {
         spacing={{ xs: 1, sm: 2, md: 4 }}
         className="stack-holder"
       >
-        <Item>Placeholder for Current Month Budget</Item>
+        {/* <Item>Placeholder for Current Month Budget</Item> */}
         <Item>
           Category Spending
           <CategoryPieChart />
         </Item>
-        <Item>Place holder for Current Month Saving</Item>
+        {/* <Item>Place holder for Current Month Saving</Item> */}
       </Stack>
     </div>
   );
