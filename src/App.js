@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import EnhancedTable from "./components/EnhancedTable";
 import MenuSideBar from "./components/MenuSideBar";
-import OverviewPanel from "./components/OverviewPanel";
+import OverviewPanel from "./components/Overview/OverviewPanel";
 import NewExpensePanel from "./components/NewExpense/NewExpensePanel";
 
 function App() {

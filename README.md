@@ -56,20 +56,27 @@ The goal is to begin with expense awareness and then expand to expense budgeting
 
 # X. OPTIONAL - Developers only
 
-## X1. To run React application
+### X1. To run React application
 ```sh
 npm start
 ```
 
-## X2. Build, push, export Docker image
-```sh
-docker build -t nahwu2/react-expense-app:0.1 .
+### X2. Build, push, export Docker image
+- Build Docker image
 
-docker push nahwu2/react-expense-app:0.1
+        docker build -t nahwu2/react-expense-app:0.1 .
 
-docker save nahwu2/react-expense-app:0.1 | gzip > exported_react_expense_app_0_1.tar.gz
-```
+- Upload Docker image to Docker Registry
 
+        docker push nahwu2/react-expense-app:0.1
+
+- Export Docker image as a file. Normally used when there is no Internet at the deployment location. If on Windows, use this command with Git Bash.
+
+        docker save nahwu2/react-expense-app:0.1 | gzip > exported_react_expense_app_0_1.tar.gz
+
+
+### X3. Convert React class components to functional components
+https://www.digitalocean.com/community/tutorials/five-ways-to-convert-react-class-components-to-functional-components-with-react-hooks
 
 
 # Getting Started with Create React App
