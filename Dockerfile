@@ -19,4 +19,4 @@ EXPOSE 8081
 
 COPY --from=build /opt/frontend/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
-#COPY server_vap_backend.crt server_vap_backend.key /var/tmp/vap-certs/
+COPY mycert /mycert

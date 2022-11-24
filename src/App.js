@@ -6,7 +6,8 @@ import OverviewPanel from "./components/Overview/OverviewPanel";
 import NewExpensePanel from "./components/NewExpense/NewExpensePanel";
 
 function App() {
-  const backendServerPath = "http://nahwu.synology.me:8080";
+  const backendServerPath = "https://nahwu.synology.me:8080";
+  //const backendServerPath = "http://nahwu.synology.me:8080";
   //const backendServerPath = "http://127.0.0.1:8080";
 
   const [isLoading, setIsLoading] = useState(false); // TODO - To make use of this
