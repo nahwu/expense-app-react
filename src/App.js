@@ -4,12 +4,14 @@ import EnhancedTable from "./components/EnhancedTable";
 import MenuSideBar from "./components/MenuSideBar";
 import OverviewPanel from "./components/Overview/OverviewPanel";
 import NewExpensePanel from "./components/NewExpense/NewExpensePanel";
+import TextField from "@mui/material/TextField";
 
 function App() {
   const backendServerPath = "https://nahwu.synology.me:8080";
   //const backendServerPath = "http://nahwu.synology.me:8080";
   //const backendServerPath = "http://127.0.0.1:8080";
 
+  const [itemSearchValue, setItemSearchValue] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // TODO - To make use of this
   const [error, setError] = useState(null); // TODO - To make use of this
 
@@ -75,6 +77,7 @@ function App() {
             pageSize: 100,
             sortBy: "date",
             sortDirection: "DESC",
+            item: itemSearchValue,
           }),
         }
       );
@@ -112,7 +115,7 @@ function App() {
       setError(error.message);
     }
     setIsLoading(false);
-  }, []);
+  }, [itemSearchValue]);    // Use callback when value of itemSearchValue changes
 
   useEffect(() => {
     fetchLatestTransactionsHandler();
@@ -158,11 +161,22 @@ function App() {
     fetchLatestTransactionsHandler();
   };
 
+  const itemSearchHandler = (event) => {
+      setItemSearchValue(event.target.value);
+  };
+
   return (
     <div className="App">
       <MenuSideBar />
       <OverviewPanel />
       <NewExpensePanel onAddExpense={addNewExpenseHandler} />
+      <TextField
+        id="outlined-basic"
+        label="Item Search"
+        variant="outlined"
+        size="small"
+        onChange={itemSearchHandler}
+      />
       <EnhancedTable
         expenseDataArray={expensesDataArray}
         parentActOnDeleteTransactions={parentActOnDeleteTransactions}

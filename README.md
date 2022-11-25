@@ -21,6 +21,7 @@ The goal is to begin with expense awareness and then expand to expense budgeting
     1. Date, item description, expense category, payer, receiver, expense/income, amount
 1. **Feature:** View existing transactions
     1. View most recent transactions
+    1. Search based on item description
 1. **Feature:** Create transactions
 1. **Feature:** Delete transactions
 1. Demo functionality for
@@ -34,7 +35,7 @@ The goal is to begin with expense awareness and then expand to expense budgeting
 ## 4. Development Roadmap
 1. **Feature:** Mobile friendly view for existing expenses (ready-made table is not suitable for mobile)
 1. **Feature:** Add support for view Transaction API
-    1. Search on item description + time period
+    1. Search based on time period as well
     1. Add in pagination (page + page size) for results
 1. **Feature:** Add support for edit Transaction API
 1. **Feature:** Add support for aggregation Transaction API (for descriptive analytics e.g. charts)
