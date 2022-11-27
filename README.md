@@ -3,17 +3,20 @@ This repository is meant for a Frontend web application for an expense tracker a
 
 **Link for backend application:** https://github.com/nahwu/expense-app-backend
 
+<ins>App Demo v0.0.1</ins>
+
+![alt text](https://github.com/nahwu/expense-app-react/blob/master/public/expense-app-react-demo-v0.0.1.gif "App demo v0.0.1")
+
 
 ## 2. Purpose
 While there are many expense trackers out there. The good ones are mostly behind a paywall. 
 
-There is also the 
-**Knowledge** of your own expenses is very crucial to our personal financial health for both the present and the future.
+`Knowledge` or `awareness` of your own expenses is very crucial to our personal financial health for both the present and the future.
 
-It only takes 20 average medium-sized spending (e.g. $50) within a month to reach 4 figure expense (>= $1000) for the month.
+For example, it only takes 20 average medium-sized spending (e.g. $50) within a month to reach 4 figure expense (>= $1000) for the month.
 It's not uncommon to know someone who spends beyond their means, especially when one suddenly have more income than before. 
 
-The goal is to begin with expense awareness and then expand to expense budgeting >> saving & networth projection >> retirement planning
+The goal of this project is to begin with `expense awareness` and then expand onwards to  `expense budgeting` >> `saving & networth projection` >> `retirement planning`
 
 
 ## 3. Supported features

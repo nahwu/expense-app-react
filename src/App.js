@@ -12,6 +12,7 @@ function App() {
   //const backendServerPath = "http://127.0.0.1:8080";
 
   const [itemSearchValue, setItemSearchValue] = useState(null);
+
   const [isLoading, setIsLoading] = useState(false); // TODO - To make use of this
   const [error, setError] = useState(null); // TODO - To make use of this
 
@@ -115,7 +116,7 @@ function App() {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [itemSearchValue]);    // Use callback when value of itemSearchValue changes
+  }, [itemSearchValue]); // Use callback when value of itemSearchValue changes
 
   useEffect(() => {
     fetchLatestTransactionsHandler();
@@ -171,7 +172,7 @@ function App() {
       <OverviewPanel />
       <NewExpensePanel onAddExpense={addNewExpenseHandler} />
       <TextField
-        id="outlined-basic"
+        id="item-search-textfield"
         label="Item Search"
         variant="outlined"
         size="small"
