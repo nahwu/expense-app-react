@@ -4,6 +4,7 @@ import EnhancedTable from "./components/EnhancedTable";
 import MenuSideBar from "./components/MenuSideBar";
 import OverviewPanel from "./components/Overview/OverviewPanel";
 import NewExpensePanel from "./components/NewExpense/NewExpensePanel";
+import QrScannerPanel from "./components/QrScanner/QrScannerPanel";
 import TextField from "@mui/material/TextField";
 
 function App() {
@@ -182,6 +183,7 @@ function App() {
         expenseDataArray={expensesDataArray}
         parentActOnDeleteTransactions={parentActOnDeleteTransactions}
       />
+      <QrScannerPanel onAddExpense={addNewExpenseHandler} />
     </div>
   );
 }
