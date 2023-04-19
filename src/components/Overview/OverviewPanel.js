@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function OverviewPanel() {
+export default function OverviewPanel(props) {
   return (
     <div className="overview-panel">
       <Stack

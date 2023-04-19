@@ -107,7 +107,20 @@ to
     const backendServerPath = "http://nahwu.synology.me:8080";
 
 
+### X6. Login Module
+
+    npm install @react-oauth/google@latest
+    https://www.npmjs.com/package/@react-oauth/google
+    https://github.com/MomenSherif/react-oauth
+
+
 
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+# Dependencies
+npm install jwt-decode --save
+
+npm install js-cookie --save
